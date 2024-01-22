@@ -1,5 +1,20 @@
 function App() {
-  return <h1 className="text-3xl font-bold">Weather App</h1>;
+  return (
+    <div>
+      <header>
+        Search Bar
+      </header>
+      <main>
+        Current Weather
+      </main>
+      <section>
+        5 Day Forecast
+      </section>
+      <footer>
+        Footer
+      </footer>
+    </div>
+  );
 }
 
 export default App;
