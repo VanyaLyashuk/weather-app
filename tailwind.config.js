@@ -10,6 +10,24 @@ export default {
         custom: ['Space Grotesk', 'sans-serif']
       }
     },
+    container: {
+      center: true,
+      padding: {
+        DEFAULT: '.5rem',
+        sm: '1rem',
+        md: '1rem',
+        lg: '1rem',
+        xl: '1rem',
+        "2xl": '1rem',
+      },
+      screens: { 
+        sm: "100%",
+        md: "100%",
+        lg: "768px",
+        xl: "768px",
+        "2xl": "768px",
+      },
+    },
   },
   plugins: [],
 }
