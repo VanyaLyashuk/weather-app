@@ -1,8 +1,10 @@
-function App() {
+import SearchBar from './components/searchBar/SearchBar';
+
+const App = () => {
   return (
     <div>
       <header>
-        Search Bar
+        <SearchBar />
       </header>
       <main>
         Current Weather

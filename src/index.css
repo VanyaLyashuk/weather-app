@@ -1,3 +1,54 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-display: swap;
+  font-family: "Space Grotesk";
+  src: local("Space Grotesk Light"), local("SpaceGrotesk-Light"),
+    url("/src/fonts/SpaceGrotesk-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-display: swap;
+  font-family: "Space Grotesk";
+  src: local("Space Grotesk Bold"), local("SpaceGrotesk-Bold"),
+    url("/src/fonts/SpaceGrotesk-Bold.woff2") format("woff2");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-display: swap;
+  font-family: "Space Grotesk";
+  src: local("Space Grotesk Medium"), local("SpaceGrotesk-Medium"),
+    url("/src/fonts/SpaceGrotesk-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-display: swap;
+  font-family: "Space Grotesk";
+  src: local("Space Grotesk SemiBold"), local("SpaceGrotesk-SemiBold"),
+    url("/src/fonts/SpaceGrotesk-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-display: swap;
+  font-family: "Space Grotesk";
+  src: local("Space Grotesk Regular"), local("SpaceGrotesk-Regular"),
+    url("/src/fonts/SpaceGrotesk-Regular.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@layer base {
+  body {
+    @apply font-custom;
+  }
+}
