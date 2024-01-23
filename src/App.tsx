@@ -3,7 +3,7 @@ import SearchBar from './components/searchBar/SearchBar';
 const App = () => {
   return (
     <div className='container'>
-      <header>
+      <header className='my-2 md:my-4'>
         <SearchBar />
       </header>
       <main>
