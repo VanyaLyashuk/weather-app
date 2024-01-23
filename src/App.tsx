@@ -1,17 +1,18 @@
+import CurrentWeather from './components/currentWeather/CurrentWeather';
 import SearchBar from './components/searchBar/SearchBar';
 
 const App = () => {
   return (
     <div className='container'>
-      <header className='my-2 md:my-4'>
+      <header className='my-3 md:my-4'>
         <SearchBar />
       </header>
       <main>
-        Current Weather
+        <CurrentWeather />
+        <section>
+          5 Day Forecast
+        </section>
       </main>
-      <section>
-        5 Day Forecast
-      </section>
       <footer>
         Footer
       </footer>
