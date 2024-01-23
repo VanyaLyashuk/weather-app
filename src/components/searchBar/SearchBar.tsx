@@ -7,7 +7,7 @@ const SearchBar = () => {
         placeholder="Search City"
       />
       <button
-        className="px-6 py-2 text-base font-medium leading-normal text-white transition-colors bg-neutral-800 rounded-r-md hover:bg-orange-600 focus:bg-orange-600 active:bg-orange-600"
+        className="px-6 py-2 text-base font-medium leading-normal text-white transition-colors bg-neutral-800 rounded-r-md hover:bg-primary focus:bg-primary active:bg-primary"
         type="submit"
       >
         Search
