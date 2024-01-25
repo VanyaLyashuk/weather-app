@@ -6,13 +6,13 @@ const CurrentWeather = () => {
   return (
     <section className="px-3 py-6 mb-3 rounded-md shadow-md sm:mb-4 sm:px-4 sm:py-6 sm:flex sm:flex-wrap md:px-[18px] md:py-8">
       <div className="flex items-center justify-between w-full">
-        <p className="text-primary md:text-lg sm:text-[18px]">Jan 4, 01:04pm</p>
+        <p className="text-primary md:text-lg sm:text-lg">Jan 4, 01:04pm</p>
         <ul className="sm:flex sm:items-center sm:gap-4">
-          <li className="flex gap-2 text-sm sm:text-[16px]">
+          <li className="flex gap-2 text-sm sm:text-base">
             <span className="uppercase text-zinc-500">Sunrise</span>
             <span>07:42am</span>
           </li>
-          <li className="flex gap-2 text-sm sm:text-[16px]">
+          <li className="flex gap-2 text-sm sm:text-base">
             <span className="text-gray-500 uppercase">Sunset</span>
             <span>04:40pm</span>
           </li>
@@ -32,7 +32,7 @@ const CurrentWeather = () => {
       <p className="mb-4 text-lg font-medium sm:mb-0 sm:text-xl md:text-[22px] sm:order-last sm:w-full">
         Feels like 11°C. Overcast clouds. Moderate breeze
       </p>
-      <ul className="border-l-[3px] border-primary pl-3 py-1 flex items-center gap-x-3 gap-y-2 flex-wrap text-lg sm:pl-5 sm:w-[calc(100%_-_235px)] sm:self-center md:text-xl md:pl-8 md:gap-x-4">
+      <ul className="border-l-[3px] border-primary pl-3 py-1 flex items-center gap-x-3 gap-y-2 flex-wrap text-base sm:text-lg sm:pl-5 sm:w-[calc(100%_-_235px)] sm:self-center md:text-xl md:pl-8 md:gap-x-4">
         <li className="flex items-center gap-1">
           <img src={arrowIcon} alt="wind" />
           <span>6.1m/s WSW</span>
