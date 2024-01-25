@@ -8,6 +8,9 @@ export default {
     extend: {
       fontFamily: {
         custom: ['Space Grotesk', 'sans-serif']
+      },
+      colors: {
+        'primary': '#e76e4e',
       }
     },
     container: {
