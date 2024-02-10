@@ -4,7 +4,7 @@ import pressureIcon from "../../assets/icons/pressure-icon.svg";
 
 const CurrentWeather = () => {
   return (
-    <section className="px-3 py-6 mb-3 rounded-md shadow-md sm:mb-4 sm:px-4 sm:py-6 sm:flex sm:flex-wrap md:px-[18px] md:py-8">
+    <section className="px-3 py-6 mb-6 rounded-md shadow-md sm:px-4 sm:py-6 sm:flex sm:flex-wrap md:px-[18px] md:py-8 sm:mb-7">
       <div className="flex items-center justify-between w-full">
         <p className="text-primary md:text-lg">Jan 4, 01:04pm</p>
         <ul className="sm:flex sm:items-center sm:gap-4">
@@ -30,7 +30,8 @@ const CurrentWeather = () => {
         <p className="text-5xl">12°C</p>
       </div>
       <p className="mb-4 text-lg font-medium sm:text-xl sm:mb-0 md:text-[22px] sm:order-last sm:w-full">
-        Feels like 11°C. Overcast clouds. <span className="text-nowrap">Moderate breeze</span>
+        Feels like 11°C. Overcast clouds.{" "}
+        <span className="text-nowrap">Moderate breeze</span>
       </p>
       <ul className="border-l-[3px] border-primary pl-3 py-1 flex items-center gap-x-3 gap-y-2 flex-wrap text-base sm:text-lg sm:pl-4 sm:w-[calc(100%_-_200px)] sm:self-center md:text-xl md:pl-8 md:gap-x-4 md:w-[calc(100%_-_235px)]">
         <li className="flex items-center gap-1">
