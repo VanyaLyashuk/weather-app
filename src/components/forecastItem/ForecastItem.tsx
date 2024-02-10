@@ -7,21 +7,21 @@ const ForecastItem = () => {
   return (
     <li className="overflow-hidden bg-white rounded-md shadow-md">
       <button className="flex items-center justify-between w-full px-3 rounded-md sm:px-4 md:px-[18px]">
-        <p className="sm:text-lg md:text-xl">Fri, Jan 05</p>
+        <p className="sm:text-lg">Fri, Jan 05</p>
         <div className="flex items-center">
           <img
             src={forecastImg}
-            className="w-12 sm:w-14 md:w-16"
+            className="w-12 sm:w-14 md:w-15"
             alt="clouds"
           />
-          <p className="sm:text-lg md:text-xl">12/6°C</p>
+          <p className="sm:text-lg">12/6°C</p>
         </div>
-        <img src={triangleIcon} className="sm:w-3" alt="arrow" />
+        <img src={triangleIcon} className="sm:w-2.5" alt="arrow" />
       </button>
-      {/* <div className="px-3 pb-6 sm:px-4 sm:grid sm:grid-cols-[1fr_3px_160px] md:grid-cols-[1fr_3px_180px] md:px-[18px] sm:gap-x-4 md:gap-x-6 md:pb-8">
+      <div className="px-3 pb-6 sm:px-4 sm:grid sm:grid-cols-[1fr_3px_160px] md:grid-cols-[1fr_3px_180px] md:px-[18px] sm:gap-x-4 md:gap-x-6 md:pb-8">
         <div className="flex items-center gap-3 sm:mt-[-14px] sm:pt-2 md:pt-3 sm:col-span-1 ">
           <img
-            className="w-[100px] mx-[-22px] sm:w-[120px] sm:mx-[-30px] sm:my-[-12px] md:w-[130px] md:my-[-16px]"
+            className="w-[100px] mx-[-22px] sm:w-[120px] sm:mx-[-26px] sm:my-[-12px]"
             src={forecastImg}
             alt="weather"
           />
@@ -107,7 +107,7 @@ const ForecastItem = () => {
             </tbody>
           </table>
         </div>
-      </div> */}
+      </div>
     </li>
   );
 };
