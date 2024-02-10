@@ -1,4 +1,5 @@
 import CurrentWeather from './components/currentWeather/CurrentWeather';
+import Forecast from './components/forecast/Forecast';
 import SearchBar from './components/searchBar/SearchBar';
 
 const App = () => {
@@ -9,9 +10,7 @@ const App = () => {
       </header>
       <main>
         <CurrentWeather />
-        <section>
-          5 Day Forecast
-        </section>
+        <Forecast />
       </main>
       <footer>
         Footer
