@@ -5,7 +5,12 @@ import SearchBar from "./components/searchBar/SearchBar";
 const App = () => {
   return (
     <div className="container flex flex-col min-h-screen pt-3 md:pt-4">
-      <header className="mb-3 md:mb-4">
+      <header className="flex justify-start mb-3 md:mb-4">
+        <div className="font-medium text-neutral-600">
+          <span className=""></span>Theme:{" "}
+          <button>Dark</button> /{" "}
+          <button className="text-primary">Light</button>
+        </div>
       </header>
       <SearchBar />
       <main>

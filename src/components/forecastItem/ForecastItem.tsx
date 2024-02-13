@@ -18,7 +18,7 @@ const ForecastItem = () => {
         </div>
         <img src={triangleIcon} className="sm:w-2.5" alt="arrow" />
       </button>
-      <div className="px-3 pb-6 sm:px-4 sm:grid sm:grid-cols-[1fr_3px_160px] md:grid-cols-[1fr_3px_180px] md:px-[18px] sm:gap-x-4 md:gap-x-6 md:pb-8">
+      {/* <div className="px-3 pb-6 sm:px-4 sm:grid sm:grid-cols-[1fr_3px_160px] md:grid-cols-[1fr_3px_180px] md:px-[18px] sm:gap-x-4 md:gap-x-6 md:pb-8">
         <div className="flex items-center gap-3 sm:mt-[-14px] sm:pt-2 md:pt-3 sm:col-span-1 ">
           <img
             className="w-[100px] mx-[-22px] sm:w-[120px] sm:mx-[-26px] sm:my-[-12px]"
@@ -107,7 +107,7 @@ const ForecastItem = () => {
             </tbody>
           </table>
         </div>
-      </div>
+      </div> */}
     </li>
   );
 };
