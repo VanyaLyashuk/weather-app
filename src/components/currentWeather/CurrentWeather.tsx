@@ -4,7 +4,7 @@ import pressureIcon from "../../assets/icons/pressure-icon.svg";
 
 const CurrentWeather = () => {
   return (
-    <section className="px-3 py-6 mb-6 rounded-md shadow-md sm:px-4 sm:py-6 sm:flex sm:flex-wrap md:px-[18px] md:py-8 sm:mb-7">
+    <section className="px-3 py-6 mb-6 rounded-md shadow-md sm:px-4 sm:py-6 sm:flex sm:flex-wrap md:px-[18px] md:py-8 sm:mb-7 bg-white">
       <div className="flex items-center justify-between w-full">
         <p className="text-primary md:text-lg">Jan 4, 01:04pm</p>
         <ul className="sm:flex sm:items-center sm:gap-4">
