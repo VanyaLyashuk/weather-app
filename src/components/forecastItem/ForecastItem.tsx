@@ -1,6 +1,6 @@
-import ArrowIcon from '../../UI/arrowIcon/ArrowIcon';
-import PressureIcon from '../../UI/pressureIcon/PressureIcon';
-import TriangleIcon from '../../UI/triangleIcon/TriangleIcon';
+import ArrowIcon from "../../UI/arrowIcon/ArrowIcon";
+import PressureIcon from "../../UI/pressureIcon/PressureIcon";
+import TriangleIcon from "../../UI/triangleIcon/TriangleIcon";
 import forecastImg from "../../assets/10d@4x.png";
 
 const ForecastItem = () => {
@@ -18,7 +18,7 @@ const ForecastItem = () => {
         </div>
         <TriangleIcon />
       </button>
-      <div className="px-3 pb-6 sm:px-4 sm:grid sm:grid-cols-[1fr_3px_160px] md:grid-cols-[1fr_3px_180px] md:px-[18px] sm:gap-x-4 md:gap-x-6 md:pb-8">
+      {/* <div className="px-3 pb-6 sm:px-4 sm:grid sm:grid-cols-[1fr_3px_160px] md:grid-cols-[1fr_3px_180px] md:px-[18px] sm:gap-x-4 md:gap-x-6 md:pb-8">
         <div className="flex items-center gap-3 sm:mt-[-14px] sm:pt-2 md:pt-3 sm:col-span-1 ">
           <img
             className="w-[100px] mx-[-22px] sm:w-[120px] sm:mx-[-26px] sm:my-[-12px]"
@@ -30,8 +30,11 @@ const ForecastItem = () => {
               Few clouds. Light breeze.
             </p>
             <p className="text-base md:text-xl">
-              The high will be 5°C,{" "}
-              <span className="whitespace-nowrap">the low will be 1°C</span>.
+              The high will be 10°C,{" "}
+              <span className="whitespace-nowrap sm:whitespace-normal">
+                the low will be 1°C
+              </span>
+              .
             </p>
           </div>
         </div>
@@ -107,7 +110,7 @@ const ForecastItem = () => {
             </tbody>
           </table>
         </div>
-      </div>
+      </div> */}
     </li>
   );
 };
