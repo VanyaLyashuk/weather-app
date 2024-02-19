@@ -1,25 +1,12 @@
 import React, { useEffect, useState } from "react";
 import ArrowIcon from "../../UI/arrowIcon/ArrowIcon";
 import PressureIcon from "../../UI/pressureIcon/PressureIcon";
+import { ITransformedCurrentWeather } from "../../models";
 import OpenWeatherService from "../../services/OpenWeatherService";
 
-interface WeatherData {
-  locationName: string;
-  date: string;
-  sunrise: string;
-  sunset: string;
-  icon: string;
-  temperature: string;
-  pressure: string;
-  humidity: string;
-  visibility: string;
-  feelsLike: number;
-  description: string;
-  wind: string;
-}
-
 const CurrentWeather: React.FC = () => {
-  const [currentWeather, setCurrentWeather] = useState<WeatherData | null>(null);
+  const [currentWeather, setCurrentWeather] =
+    useState<ITransformedCurrentWeather | null>(null);
 
   const openWeatherService = new OpenWeatherService();
 
@@ -28,10 +15,23 @@ const CurrentWeather: React.FC = () => {
   }, []);
 
   if (!currentWeather) {
-    return <div>Loading...</div>
+    return <div>Loading...</div>;
   }
 
-  const { date, sunrise, sunset, locationName, icon, temperature, feelsLike, description, wind, pressure, humidity, visibility } = currentWeather;
+  const {
+    date,
+    sunrise,
+    sunset,
+    locationName,
+    icon,
+    temperature,
+    feelsLike,
+    description,
+    wind,
+    pressure,
+    humidity,
+    visibility,
+  } = currentWeather;
 
   return (
     <section className="px-3 py-6 mb-6 rounded-md shadow-md sm:px-4 sm:py-6 sm:flex sm:flex-wrap md:px-[18px] md:py-8 sm:mb-7 bg-white dark:bg-slate-800">

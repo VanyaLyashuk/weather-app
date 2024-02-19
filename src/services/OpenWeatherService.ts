@@ -1,50 +1,9 @@
-interface Location {
-  lat: number;
-  lon: number;
-}
-
-interface WeatherData {
-  name: string;
-  sys: {
-    country: string;
-    sunrise: number;
-    sunset: number;
-  };
-  dt: number;
-  visibility: number;
-  weather: Array<{ icon: string; description: string }>;
-  main: {
-    temp: number;
-    feels_like: number;
-    humidity: number;
-    pressure: number;
-  };
-  wind: {
-    speed: number;
-    gust: number;
-    deg: number;
-  };
-}
-
-interface TransformWeatherData {
-  locationName: string;
-  date: string;
-  sunrise: string;
-  sunset: string;
-  icon: string;
-  temperature: string;
-  pressure: string;
-  humidity: string;
-  visibility: string;
-  feelsLike: number;
-  description: string;
-  wind: string;
-}
+import { ICurrentWeather, ILocation, ITransformedCurrentWeather } from "../models";
 
 class OpenWeatherService {
   private _apiBase: string = "https://api.openweathermap.org/data/2.5/";
   private _apiKey: string = "54e6a33b161001dd37822697dce2955c";
-  private _defaultLocation: Location = {
+  private _defaultLocation: ILocation = {
     lat: 45.34,
     lon: 28.84,
   };
@@ -57,16 +16,20 @@ class OpenWeatherService {
     return await res.json();
   }
 
-  public async getCurrentWeather(): Promise<TransformWeatherData> {
+  public async getCurrentWeather(): Promise<ITransformedCurrentWeather> {
     const url: string = `${this._apiBase}weather?lat=${this._defaultLocation.lat}&lon=${this._defaultLocation.lon}&appid=${this._apiKey}&units=metric`;
-    const res: WeatherData = await this.getResource(url);
-
-    console.log(res);
+    const res: ICurrentWeather = await this.getResource(url);
     
     return this._transformWeatherData(res);
   }
 
-  private _transformWeatherData(data: WeatherData): TransformWeatherData {
+  public async getFiveDayForecast(): Promise<any> {
+    const url: string = `${this._apiBase}forecast?lat=${this._defaultLocation.lat}&lon=${this._defaultLocation.lon}&appid=${this._apiKey}&units=metric`;
+    const res: any = await this.getResource(url);
+    return res;
+  }
+
+  private _transformWeatherData(data: ICurrentWeather): ITransformedCurrentWeather {
     return {
       locationName: `${data.name}, ${data.sys.country}`,
       date: this._transformDate(new Date(data.dt * 1000)),
@@ -84,7 +47,7 @@ class OpenWeatherService {
       wind: this._transformWind(data),
     };
   }
-  private _transformWind = (data: WeatherData): string => {
+  private _transformWind = (data: ICurrentWeather): string => {
     return `${data.wind.speed} m/s ${this._transformWindDirection(data.wind.deg)}`;
   };
   private _transformWindDirection = (degrees: number): string => {
