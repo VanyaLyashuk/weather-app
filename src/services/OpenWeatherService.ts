@@ -1,4 +1,8 @@
-import { ICurrentWeather, ILocation, ITransformedCurrentWeather } from "../models";
+import {
+  ICurrentWeather,
+  ILocation,
+  ITransformedCurrentWeather,
+} from "@models/index";
 
 class OpenWeatherService {
   private _apiBase: string = "https://api.openweathermap.org/data/2.5/";
@@ -19,7 +23,7 @@ class OpenWeatherService {
   public async getCurrentWeather(): Promise<ITransformedCurrentWeather> {
     const url: string = `${this._apiBase}weather?lat=${this._defaultLocation.lat}&lon=${this._defaultLocation.lon}&appid=${this._apiKey}&units=metric`;
     const res: ICurrentWeather = await this.getResource(url);
-    
+
     return this._transformWeatherData(res);
   }
 
@@ -29,7 +33,9 @@ class OpenWeatherService {
     return res;
   }
 
-  private _transformWeatherData(data: ICurrentWeather): ITransformedCurrentWeather {
+  private _transformWeatherData(
+    data: ICurrentWeather
+  ): ITransformedCurrentWeather {
     return {
       locationName: `${data.name}, ${data.sys.country}`,
       date: this._transformDate(new Date(data.dt * 1000)),
@@ -48,7 +54,9 @@ class OpenWeatherService {
     };
   }
   private _transformWind = (data: ICurrentWeather): string => {
-    return `${data.wind.speed} m/s ${this._transformWindDirection(data.wind.deg)}`;
+    return `${data.wind.speed} m/s ${this._transformWindDirection(
+      data.wind.deg
+    )}`;
   };
   private _transformWindDirection = (degrees: number): string => {
     const directions: string[] = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
@@ -57,7 +65,20 @@ class OpenWeatherService {
   };
 
   private _transformDate = (date: Date): string => {
-    const months: string[] = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
+    const months: string[] = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sept",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
 
     return `${months[date.getMonth()]} ${date.getDate()}, ${this._transformTime(
       date
@@ -65,7 +86,10 @@ class OpenWeatherService {
   };
   private _transformTime = (date: Date): string => {
     const hours: string = (date.getHours() % 12 || 12).toString();
-    const minutes: string = date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes().toString();
+    const minutes: string =
+      date.getMinutes() < 10
+        ? `0${date.getMinutes()}`
+        : date.getMinutes().toString();
     const ampm: string = date.getHours() < 12 ? "am" : "pm";
 
     return `${hours}:${minutes}${ampm}`;

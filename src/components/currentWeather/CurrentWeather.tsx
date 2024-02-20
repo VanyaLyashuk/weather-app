@@ -1,8 +1,8 @@
+import ArrowIcon from "@icons/ArrowIcon";
+import PressureIcon from "@icons/PressureIcon";
+import { ITransformedCurrentWeather } from "@models/index";
+import OpenWeatherService from "@services/OpenWeatherService";
 import React, { useEffect, useState } from "react";
-import ArrowIcon from "../../UI/arrowIcon/ArrowIcon";
-import PressureIcon from "../../UI/pressureIcon/PressureIcon";
-import { ITransformedCurrentWeather } from "../../models";
-import OpenWeatherService from "../../services/OpenWeatherService";
 
 const CurrentWeather: React.FC = () => {
   const [currentWeather, setCurrentWeather] =

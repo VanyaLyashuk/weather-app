@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import ArrowIcon from "../../UI/arrowIcon/ArrowIcon";
-import PressureIcon from "../../UI/pressureIcon/PressureIcon";
-import TriangleIcon from "../../UI/triangleIcon/TriangleIcon";
+import ArrowIcon from "../../UI/icons/ArrowIcon";
+import PressureIcon from "../../UI/icons/PressureIcon";
+import TriangleIcon from "../../UI/icons/TriangleIcon";
 import forecastImg from "../../assets/10d@4x.png";
 
 const ForecastItem = () => {
