@@ -7,7 +7,7 @@ export interface ICurrentWeather {
   };
   dt: number;
   visibility: number;
-  weather: Array<{ icon: string; description: string }>;
+  weather: { icon: string; description: string }[];
   main: {
     temp: number;
     feels_like: number;

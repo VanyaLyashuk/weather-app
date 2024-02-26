@@ -63,12 +63,6 @@ const ForecastItem = () => {
             <span>Humidity: 69%</span>
           </li>
           <li>
-            <span>UV: 1</span>
-          </li>
-          <li>
-            <span>Dew point: 7°C</span>
-          </li>
-          <li>
             <span>Visibility: 10.0km</span>
           </li>
         </ul>
