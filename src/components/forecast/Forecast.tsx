@@ -1,15 +1,25 @@
+import { ITransformedForecast } from "@models/index";
 import OpenWeatherService from "@services/OpenWeatherService";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import ForecastItem from "../forecastItem/ForecastItem";
 
 const Forecast = () => {
-  
+  const [forecast, setForecast] = useState<
+    ITransformedForecast[] | null
+  >(null);
   const openWeatherService = new OpenWeatherService();
 
   useEffect(() => {
-    openWeatherService
-      .getFiveDayForecast()
+    openWeatherService.getFiveDayForecast().then(setForecast);
   }, []);
+
+  if (!forecast) {
+    return <div>Loading...</div>;
+  }
+
+  const forecastItems = forecast.map((item, index) => (
+    <ForecastItem forecast={item} key={item.date} index={index}/>
+  ));
 
   return (
     <section>
@@ -17,11 +27,7 @@ const Forecast = () => {
         3-hour Forecast 5 days
       </h2>
       <ul className="grid gap-3 md:gap-4">
-        <ForecastItem />
-        <ForecastItem />
-        <ForecastItem />
-        <ForecastItem />
-        <ForecastItem />
+        {forecastItems}
       </ul>
     </section>
   );
