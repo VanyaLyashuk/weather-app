@@ -4,7 +4,10 @@ import {
   IForecastWeather,
   ILocation,
   ITransformedCurrentWeather,
-  ITransformedFiveDayForecast,
+  ITransformedForecast,
+  ITransformedForecastWithSummary,
+  TimePeriodKey,
+  TimePeriodValue,
 } from "@models/index";
 
 class OpenWeatherService {
@@ -30,13 +33,13 @@ class OpenWeatherService {
     return this._transformWeatherData(res);
   }
 
-  public async getFiveDayForecast(): Promise<ITransformedFiveDayForecast[]> {
+  public async getFiveDayForecast(): Promise<
+    ITransformedForecastWithSummary[]
+  > {
     const url: string = `${this._apiBase}forecast?lat=${this._defaultLocation.lat}&lon=${this._defaultLocation.lon}&appid=${this._apiKey}&units=metric`;
     const res: IFiveDayForecast = await this.getResource<IFiveDayForecast>(url);
 
-    console.log(this._transformFiveDayForecast(res.list));
-
-    return this._transformFiveDayForecast(res.list);
+    return this._transformFiveDayForecast(res.list).splice(0, 5);
   }
 
   private _transformWeatherData(
@@ -62,40 +65,38 @@ class OpenWeatherService {
 
   private _transformFiveDayForecast = (
     data: IForecastWeather[]
-  ): ITransformedFiveDayForecast[] => {
-    const transformed: ITransformedFiveDayForecast[] = data.map(
-      (item: IForecastWeather) => {
-        return {
-          date: this._transformDate(new Date(item.dt * 1000), "day, mm dd"),
-          data: [
-            {
-              time: this._transformTime(new Date(item.dt * 1000)),
-              icon: `http://openweathermap.org/img/wn/${item.weather[0].icon}.png`,
-              temperature: `${Math.round(item.main.temp)}°C`,
-              temperatureMin: `${Math.round(item.main.temp_min)}°C`,
-              temperatureMax: `${Math.round(item.main.temp_max)}°C`,
-              description:
-                item.weather[0].description[0].toUpperCase() +
-                item.weather[0].description.slice(1),
-              wind: this._transformWind(item),
-              pressure: `${item.main.pressure}hPa`,
-              humidity: `Humidity: ${item.main.humidity}%`,
-              visibility: `Visibility: ${(item.visibility / 1000).toFixed(
-                1
-              )}km`,
-            },
-          ],
-        };
-      }
+  ): ITransformedForecastWithSummary[] => {
+    const transformed = data.map((item: IForecastWeather) => {
+      return {
+        date: this._transformDate(new Date(item.dt * 1000), "day, mm dd"),
+        data: [
+          {
+            time: this._transformTime(new Date(item.dt * 1000)),
+            icon: `http://openweathermap.org/img/wn/${item.weather[0].icon}@4x.png`,
+            temperature: `${Math.round(item.main.temp)}°C`,
+            feelsLike: `${Math.round(item.main.feels_like)}°C`,
+            temperatureMin: Math.round(item.main.temp_min),
+            temperatureMax: Math.round(item.main.temp_max),
+            description:
+              item.weather[0].description[0].toUpperCase() +
+              item.weather[0].description.slice(1),
+            wind: this._transformWind(item),
+            pressure: `${item.main.pressure}hPa`,
+            humidity: `Humidity: ${item.main.humidity}%`,
+            visibility: `Visibility: ${(item.visibility / 1000).toFixed(1)}km`,
+          },
+        ],
+      };
+    });
+
+    return this._getDailyTemperatureStats(
+      this._groupForecastByDay(transformed)
     );
-
-    return this._groupForecastByDay(transformed);
   };
-
   private _groupForecastByDay = (
-    data: ITransformedFiveDayForecast[]
-  ): ITransformedFiveDayForecast[] => {
-    const result: ITransformedFiveDayForecast[] = [];
+    data: ITransformedForecast[]
+  ): ITransformedForecast[] => {
+    const result: ITransformedForecast[] = [];
 
     data.forEach((item) => {
       const existingIndex = result.findIndex(
@@ -110,6 +111,49 @@ class OpenWeatherService {
     });
 
     return result;
+  };
+
+  private _getDailyTemperatureStats = (
+    data: ITransformedForecast[]
+  ): ITransformedForecastWithSummary[] => {
+    return data.map((item) => {
+      const dailyTemperatureSummary = {
+        morning: { temperature: "N/A", feelsLike: "N/A" },
+        afternoon: { temperature: "N/A", feelsLike: "N/A" },
+        evening: { temperature: "N/A", feelsLike: "N/A" },
+        night: { temperature: "N/A", feelsLike: "N/A" },
+      };
+
+      item.data.forEach((timePeriodData) => {
+        const timePeriod = this._getTimePeriod(timePeriodData.time);
+        if (
+          timePeriod &&
+          timePeriodData.temperature &&
+          timePeriodData.feelsLike
+        ) {
+          dailyTemperatureSummary[timePeriod] = {
+            temperature: timePeriodData.temperature,
+            feelsLike: timePeriodData.feelsLike,
+          };
+        }
+      });
+
+      return {
+        ...item,
+        dailyTemperatureSummary,
+      };
+    });
+  };
+
+  private _getTimePeriod = (time: string): TimePeriodValue | null => {
+    const timePeriodMapping: Record<TimePeriodKey, TimePeriodValue> = {
+      "5:00am": "morning",
+      "2:00pm": "afternoon",
+      "8:00pm": "evening",
+      "11:00pm": "night",
+    };
+
+    return timePeriodMapping[time as TimePeriodKey] || null;
   };
 
   private _transformDate = (date: Date, format?: string): string => {
