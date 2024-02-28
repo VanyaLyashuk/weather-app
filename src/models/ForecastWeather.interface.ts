@@ -2,6 +2,7 @@ export interface IForecastWeather {
   dt: number;
   main: {
     temp: number;
+    feels_like: number;
     temp_min: number;
     temp_max: number;
     pressure: number;
