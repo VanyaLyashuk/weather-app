@@ -53,3 +53,18 @@
   }
 }
 
+@media (min-width: 390px) {
+  .current-weather-date-xs {
+    @apply text-lg;
+  }
+  .current-weather-description-xs {
+    @apply text-xl;
+  }
+  .current-weather-condition-xs {
+    @apply text-lg;
+  }
+  .sunrise-sunset-xs {
+    @apply text-base;
+  }
+}
+
