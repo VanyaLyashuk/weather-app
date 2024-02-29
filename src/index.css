@@ -66,5 +66,27 @@
   .sunrise-sunset-xs {
     @apply text-base;
   }
+
+  .forecast-text-size-xs {
+    @apply text-lg;
+  }
+  .forecast-descr-text-size-xs {
+    @apply text-xl;
+  }
+  .forecast-btn-icon-size-xs {
+    @apply w-14;
+  }
+  .forecast-time-period-text-size-xs {
+    @apply text-[17px];
+  }
+  .forecast-time-period-label-size-xs {
+    @apply text-[15px];
+  }
+  .forecast-btn-date-width-xs {
+    @apply min-w-[108px]
+  }
+  .forecast-temp-width-xs {
+    @apply min-w-[126px]
+  }
 }
 
