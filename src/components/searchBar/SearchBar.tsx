@@ -2,7 +2,7 @@ const SearchBar = () => {
   return (
     <form className="flex mb-3 md:mb-4">
       <input
-        className="w-full px-3 py-[10px] text-base leading-relaxed rounded-none rounded-bl-md rounded-tl-md shadow-md md:text-[18px] md:pl-[18px] dark:bg-slate-800 dark:text-slate-400"
+        className="w-full px-3 py-[10px] text-base leading-relaxed rounded-none rounded-bl-md rounded-tl-md shadow-md sm:text-lg md:pl-[18px] dark:bg-slate-800 dark:text-slate-400"
         type="text"
         placeholder="Search City"
       />

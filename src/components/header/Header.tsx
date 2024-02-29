@@ -19,7 +19,7 @@ const Header = () => {
 
   return (
     <header className="flex justify-start mb-3 md:mb-4">
-      <div className="font-medium text-neutral-600 dark:text-slate-400">
+      <div className="font-medium text-neutral-600 dark:text-slate-400 sm:text-lg">
         <span className=""></span>
         <button
           className={theme === "dark" ? "text-primary" : ""}
