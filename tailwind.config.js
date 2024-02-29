@@ -8,34 +8,30 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        custom: ['Space Grotesk', 'sans-serif']
+        custom: ['Space Grotesk', 'sans-serif'],
       },
       colors: {
         'primary': '#e76e4e',
-      }
+      },
+    },
+    screens: {
+      sm: "640px",
+      md: "768px",
+      lg: "768px",
+      xl: "768px",
+      "2xl": "768px",
     },
     container: {
       center: true,
       padding: {
         DEFAULT: '12px',
-        xxs: '1rem',
         sm: '1rem',
         md: '1rem',
         lg: '1rem',
         xl: '1rem',
         "2xl": '1rem',
       },
-      screens: {
-        xxs: "390px",
-        xs: "420px",
-        sm: "640px",
-        md: "768px",
-        lg: "768px",
-        xl: "768px",
-        "2xl": "768px",
-      },
     },
   },
   plugins: [],
 }
-
