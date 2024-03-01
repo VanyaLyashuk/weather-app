@@ -1,11 +1,11 @@
-import { ITransformedForecast } from "@models/index";
+import { ITransformedForecastWithSummary } from "@models/index";
 import OpenWeatherService from "@services/OpenWeatherService";
 import { useEffect, useState } from "react";
 import ForecastItem from "../forecastItem/ForecastItem";
 
 const Forecast = () => {
   const [forecast, setForecast] = useState<
-    ITransformedForecast[] | null
+  ITransformedForecastWithSummary[] | null
   >(null);
   const openWeatherService = new OpenWeatherService();
 
