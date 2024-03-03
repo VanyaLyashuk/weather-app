@@ -13,7 +13,6 @@ const Forecast = () => {
   const [error, setError] = useState<boolean>(false);
 
   const openWeatherService = new OpenWeatherService();
-
   const minHeightClass = "min-h-[250px] sm:min-h-[330px] md:min-h-[345px]";
 
   useEffect(() => {
@@ -31,32 +30,34 @@ const Forecast = () => {
       });
   }, []);
 
-  if (loading) {
-    return <Spinner minHeightClass={minHeightClass} />;
-  }
+  const spinner = loading ? <Spinner minHeightClass={minHeightClass} /> : null;
+  const errorMsg = error ? (
+    <ErrorMessage
+      minHeightClass={minHeightClass}
+      message="Error loading 3 hour forecast for 5&nbsp;days."
+    />
+  ) : null;
 
-  if (error) {
-    return (
-      <ErrorMessage
-        minHeightClass={minHeightClass}
-        message="Error loading 3 hour forecast for 5&nbsp;days."
-      />
-    );
-  }
-
-  const forecastItems = forecast
-    ? forecast.map((item, index) => (
-        <ForecastItem forecast={item} key={item.date} index={index} />
-      ))
-    : null;
+  const content =
+    !loading && !error && forecast ? (
+      <section>
+        <h2 className="text-xl font-bold mb-3 sm:text-[22px] md:text-2xl dark:text-slate-400">
+          3-hour Forecast 5 days
+        </h2>
+        <ul className="grid gap-3 md:gap-4">
+          {forecast.map((item, index) => (
+            <ForecastItem forecast={item} key={item.date} index={index} />
+          ))}
+        </ul>
+      </section>
+    ) : null;
 
   return (
-    <section>
-      <h2 className="text-xl font-bold mb-3 sm:text-[22px] md:text-2xl dark:text-slate-400">
-        3-hour Forecast 5 days
-      </h2>
-      <ul className="grid gap-3 md:gap-4">{forecastItems}</ul>
-    </section>
+    <>
+      {spinner}
+      {errorMsg}
+      {content}
+    </>
   );
 };
 
