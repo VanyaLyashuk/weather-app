@@ -3,19 +3,45 @@ import PressureIcon from "@icons/PressureIcon";
 import { ITransformedCurrentWeather } from "@models/index";
 import OpenWeatherService from "@services/OpenWeatherService";
 import React, { useEffect, useState } from "react";
+import ErrorMessage from "../errorMessage/ErrorMessage";
+import Spinner from "../spinner/Spinner";
 
 const CurrentWeather: React.FC = () => {
   const [currentWeather, setCurrentWeather] =
     useState<ITransformedCurrentWeather | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<boolean>(false);
+
+  const minHeightClass = "min-h-[325px] sm:min-h-[250px] md:min-h-[315px]";
 
   const openWeatherService = new OpenWeatherService();
 
   useEffect(() => {
-    openWeatherService.getCurrentWeather().then(setCurrentWeather);
+    setLoading(true);
+    setError(false);
+    openWeatherService
+      .getCurrentWeather()
+      .then((response) => {
+        setCurrentWeather(response);
+        setLoading(false);
+      })
+      .catch(() => {
+        setError(true);
+        setLoading(false);
+      });
   }, []);
 
-  if (!currentWeather) {
-    return <div>Loading...</div>;
+  if (loading) {
+    return <Spinner minHeightClass={minHeightClass} />;
+  }
+
+  if (error) {
+    return (
+      <ErrorMessage
+        minHeightClass={minHeightClass}
+        message="Error loading current weather."
+      />
+    );
   }
 
   const {
@@ -31,7 +57,7 @@ const CurrentWeather: React.FC = () => {
     pressure,
     humidity,
     visibility,
-  } = currentWeather;
+  } = currentWeather || ({} as ITransformedCurrentWeather);
 
   return (
     <section className="px-3 py-6 mb-6 rounded-md shadow-md sm:px-4 sm:py-6 sm:grid sm:grid-cols-[auto,1fr] md:px-[18px] md:py-8 sm:mb-7 bg-white dark:bg-slate-800">
