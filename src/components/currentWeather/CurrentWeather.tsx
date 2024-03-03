@@ -31,23 +31,26 @@ const CurrentWeather: React.FC = () => {
       });
   }, []);
 
-  if (loading) {
-    return <Spinner minHeightClass={minHeightClass} />;
-  }
+  const spinner = loading ? <Spinner minHeightClass={minHeightClass} /> : null;
+  const errorMsg = error ? (
+    <ErrorMessage
+      minHeightClass={minHeightClass}
+      message="Error loading current weather."
+    />
+  ) : null;
 
-  if (error) {
-    return (
-      <ErrorMessage
-        minHeightClass={minHeightClass}
-        message="Error loading current weather."
-      />
-    );
-  }
-
-  return (
+  const content = !(loading || errorMsg || !currentWeather) ? (
     <CurrentWeatherView
       {...(currentWeather || ({} as ITransformedCurrentWeather))}
     />
+  ) : null;
+
+  return (
+    <>
+      {spinner}
+      {errorMsg}
+      {content}
+    </>
   );
 };
 
