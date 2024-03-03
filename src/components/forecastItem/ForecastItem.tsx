@@ -7,9 +7,7 @@ import TriangleIcon from "../../UI/icons/TriangleIcon";
 const ForecastItem: React.FC<IForecastItemProps> = ({ forecast, index }) => {
   const [showDetails, setShowDetails] = useState<boolean>(false);
 
-  const handleDetails = () => {
-    setShowDetails((prevState) => !prevState);
-  };
+  const handleDetailsToggle = () => setShowDetails(!showDetails);
 
   const detailsClasses = showDetails
     ? "max-h-[1000px] visible pb-6 md:pb-8"
@@ -32,7 +30,7 @@ const ForecastItem: React.FC<IForecastItemProps> = ({ forecast, index }) => {
   return (
     <li className="overflow-hidden bg-white rounded-md shadow-md dark:bg-slate-800 dark:text-slate-400">
       <button
-        onClick={handleDetails}
+        onClick={handleDetailsToggle}
         className="flex items-center justify-between w-full px-3 rounded-md sm:px-4 md:px-[18px]"
       >
         <p className="text-left min-w-[95px] forecast-text-size-xs forecast-btn-date-width-xs">{forecast.date}</p>
