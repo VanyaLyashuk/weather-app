@@ -44,21 +44,27 @@ const CurrentWeather: React.FC = () => {
     );
   }
 
-  const {
-    date,
-    sunrise,
-    sunset,
-    locationName,
-    icon,
-    temperature,
-    feelsLike,
-    description,
-    wind,
-    pressure,
-    humidity,
-    visibility,
-  } = currentWeather || ({} as ITransformedCurrentWeather);
+  return (
+    <CurrentWeatherView
+      {...(currentWeather || ({} as ITransformedCurrentWeather))}
+    />
+  );
+};
 
+const CurrentWeatherView: React.FC<ITransformedCurrentWeather> = ({
+  date,
+  sunrise,
+  sunset,
+  locationName,
+  icon,
+  temperature,
+  feelsLike,
+  description,
+  wind,
+  pressure,
+  humidity,
+  visibility,
+}) => {
   return (
     <section className="px-3 py-6 mb-6 rounded-md shadow-md sm:px-4 sm:py-6 sm:grid sm:grid-cols-[auto,1fr] md:px-[18px] md:py-8 sm:mb-7 bg-white dark:bg-slate-800">
       <div className="flex items-center justify-between w-full sm:col-span-2">
