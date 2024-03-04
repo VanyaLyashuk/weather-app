@@ -1,11 +1,11 @@
-import { ITransformedForecastWithSummary } from "@models/index";
+import { ILocation, ITransformedForecastWithSummary } from "@models/index";
 import OpenWeatherService from "@services/OpenWeatherService";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import ErrorMessage from "../errorMessage/ErrorMessage";
 import ForecastItem from "../forecastItem/ForecastItem";
 import Spinner from "../spinner/Spinner";
 
-const Forecast = () => {
+const Forecast: React.FC<ILocation> = ({ lat, lon }) => {
   const [forecast, setForecast] = useState<
     ITransformedForecastWithSummary[] | null
   >(null);
@@ -19,7 +19,7 @@ const Forecast = () => {
     setLoading(true);
     setError(false);
     openWeatherService
-      .getFiveDayForecast()
+      .getFiveDayForecast(lat, lon)
       .then((response) => {
         setLoading(false);
         setForecast(response);
@@ -28,7 +28,7 @@ const Forecast = () => {
         setLoading(false);
         setError(true);
       });
-  }, []);
+  }, [lat, lon]);
 
   const spinner = loading ? <Spinner minHeightClass={minHeightClass} /> : null;
   const errorMsg = error ? (
