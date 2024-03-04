@@ -1,12 +1,12 @@
 import ArrowIcon from "@icons/ArrowIcon";
 import PressureIcon from "@icons/PressureIcon";
-import { ITransformedCurrentWeather } from "@models/index";
+import { ILocation, ITransformedCurrentWeather } from "@models/index";
 import OpenWeatherService from "@services/OpenWeatherService";
 import React, { useEffect, useState } from "react";
 import ErrorMessage from "../errorMessage/ErrorMessage";
 import Spinner from "../spinner/Spinner";
 
-const CurrentWeather: React.FC = () => {
+const CurrentWeather: React.FC<ILocation> = ({lat, lon}) => {
   const [currentWeather, setCurrentWeather] =
     useState<ITransformedCurrentWeather | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -20,7 +20,7 @@ const CurrentWeather: React.FC = () => {
     setLoading(true);
     setError(false);
     openWeatherService
-      .getCurrentWeather()
+      .getCurrentWeather(lat, lon)
       .then((response) => {
         setCurrentWeather(response);
         setLoading(false);
@@ -29,7 +29,7 @@ const CurrentWeather: React.FC = () => {
         setError(true);
         setLoading(false);
       });
-  }, []);
+  }, [lat, lon]);
 
   const spinner = loading ? <Spinner minHeightClass={minHeightClass} /> : null;
   const errorMsg = error ? (
