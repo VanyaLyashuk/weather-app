@@ -4,11 +4,17 @@ import {
   IForecastWeather,
   ILocation,
   ITransformedCurrentWeather,
-  ITransformedForecast,
   ITransformedForecastWithSummary,
-  TimePeriodKey,
-  TimePeriodValue,
-} from "@models/index";
+} from "../models";
+
+import {
+  _getDailyTemperatureStats,
+  _getTimePeriod,
+  _groupForecastByDay,
+  _transformDate,
+  _transformTime,
+  _transformWind,
+} from "./weatherUtils";
 
 class OpenWeatherService {
   private _apiBase: string = "https://api.openweathermap.org/data/2.5/";
@@ -47,9 +53,9 @@ class OpenWeatherService {
   ): ITransformedCurrentWeather {
     return {
       locationName: `${data.name}, ${data.sys.country}`,
-      date: this._transformDate(new Date(data.dt * 1000), "mm dd, time"),
-      sunrise: this._transformTime(new Date(data.sys.sunrise * 1000)),
-      sunset: this._transformTime(new Date(data.sys.sunset * 1000)),
+      date: _transformDate(new Date(data.dt * 1000), "mm dd, time"),
+      sunrise: _transformTime(new Date(data.sys.sunrise * 1000)),
+      sunset: _transformTime(new Date(data.sys.sunset * 1000)),
       icon: `http://openweathermap.org/img/wn/${data.weather[0].icon}@4x.png`,
       temperature: `${Math.round(data.main.temp)}°C`,
       feelsLike: Math.round(data.main.feels_like),
@@ -59,7 +65,7 @@ class OpenWeatherService {
       description:
         data.weather[0].description[0].toUpperCase() +
         data.weather[0].description.slice(1),
-      wind: this._transformWind(data),
+      wind: _transformWind(data),
     };
   }
 
@@ -68,10 +74,10 @@ class OpenWeatherService {
   ): ITransformedForecastWithSummary[] => {
     const transformed = data.map((item: IForecastWeather) => {
       return {
-        date: this._transformDate(new Date(item.dt * 1000), "day, mm dd"),
+        date: _transformDate(new Date(item.dt * 1000), "day, mm dd"),
         data: [
           {
-            time: this._transformTime(new Date(item.dt * 1000)),
+            time: _transformTime(new Date(item.dt * 1000)),
             icon: `http://openweathermap.org/img/wn/${item.weather[0].icon}@4x.png`,
             temperature: `${Math.round(item.main.temp)}°C`,
             feelsLike: `${Math.round(item.main.feels_like)}°C`,
@@ -80,7 +86,7 @@ class OpenWeatherService {
             description:
               item.weather[0].description[0].toUpperCase() +
               item.weather[0].description.slice(1),
-            wind: this._transformWind(item),
+            wind: _transformWind(item),
             pressure: `${item.main.pressure}hPa`,
             humidity: `Humidity: ${item.main.humidity}%`,
             visibility: `Visibility: ${(item.visibility / 1000).toFixed(1)}km`,
@@ -89,124 +95,7 @@ class OpenWeatherService {
       };
     });
 
-    return this._getDailyTemperatureStats(
-      this._groupForecastByDay(transformed)
-    );
-  };
-  private _groupForecastByDay = (
-    data: ITransformedForecast[]
-  ): ITransformedForecast[] => {
-    const result: ITransformedForecast[] = [];
-
-    data.forEach((item) => {
-      const existingIndex = result.findIndex(
-        (resItem) => resItem.date === item.date
-      );
-
-      if (existingIndex > -1) {
-        result[existingIndex].data.push(item.data[0]);
-      } else {
-        result.push({ ...item });
-      }
-    });
-
-    return result;
-  };
-
-  private _getDailyTemperatureStats = (
-    data: ITransformedForecast[]
-  ): ITransformedForecastWithSummary[] => {
-    return data.map((item) => {
-      const dailyTemperatureSummary = {
-        morning: { temperature: "N/A", feelsLike: "N/A" },
-        afternoon: { temperature: "N/A", feelsLike: "N/A" },
-        evening: { temperature: "N/A", feelsLike: "N/A" },
-        night: { temperature: "N/A", feelsLike: "N/A" },
-      };
-
-      item.data.forEach((timePeriodData) => {
-        const timePeriod = this._getTimePeriod(timePeriodData.time);
-        if (
-          timePeriod &&
-          timePeriodData.temperature &&
-          timePeriodData.feelsLike
-        ) {
-          dailyTemperatureSummary[timePeriod] = {
-            temperature: timePeriodData.temperature,
-            feelsLike: timePeriodData.feelsLike,
-          };
-        }
-      });
-
-      return {
-        ...item,
-        dailyTemperatureSummary,
-      };
-    });
-  };
-
-  private _getTimePeriod = (time: string): TimePeriodValue | null => {
-    const timePeriodMapping: Record<TimePeriodKey, TimePeriodValue> = {
-      "5:00am": "morning",
-      "2:00pm": "afternoon",
-      "8:00pm": "evening",
-      "11:00pm": "night",
-    };
-
-    return timePeriodMapping[time as TimePeriodKey] || null;
-  };
-
-  private _transformDate = (date: Date, format?: string): string => {
-    const months: string[] = [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sept",
-      "Oct",
-      "Nov",
-      "Dec",
-    ];
-
-    const days: string[] = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-    switch (format) {
-      case "day, mm dd":
-        return `${days[date.getDay()]}, ${
-          months[date.getMonth()]
-        } ${date.getDate()}`;
-      case "dd":
-        return `${date.getDate()}`;
-      default:
-        return `${
-          months[date.getMonth()]
-        } ${date.getDate()}, ${this._transformTime(date)}`;
-    }
-  };
-  private _transformTime = (date: Date): string => {
-    const hours: string = (date.getHours() % 12 || 12).toString();
-    const minutes: string =
-      date.getMinutes() < 10
-        ? `0${date.getMinutes()}`
-        : date.getMinutes().toString();
-    const ampm: string = date.getHours() < 12 ? "am" : "pm";
-
-    return `${hours}:${minutes}${ampm}`;
-  };
-  private _transformWind = (
-    data: ICurrentWeather | IForecastWeather
-  ): string => {
-    return `${data.wind.speed} m/s ${this._transformWindDirection(
-      data.wind.deg
-    )}`;
-  };
-  private _transformWindDirection = (degrees: number): string => {
-    const directions: string[] = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
-
-    return directions[Math.round(degrees / 45) % 8];
+    return _getDailyTemperatureStats(_groupForecastByDay(transformed));
   };
 }
 
