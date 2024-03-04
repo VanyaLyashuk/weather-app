@@ -1,3 +1,4 @@
+import { ICity } from './City.interface';
 import { ICurrentWeather } from "./CurrentWeather.interface";
 import { IFiveDayForecast } from "./FiveDayForecast.interface";
 import { IForecastItemProps } from "./ForecastItemProps.interface";
@@ -10,7 +11,7 @@ import { ITransformedForecast } from "./TransformedForecast.interface";
 import { ITransformedForecastWithSummary } from "./TransformedForecastWithSummary.interface";
 
 export type {
-  ICurrentWeather,
+  ICity, ICurrentWeather,
   IFiveDayForecast,
   IForecastItemProps,
   IForecastWeather,
