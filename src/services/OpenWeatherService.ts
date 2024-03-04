@@ -1,10 +1,11 @@
 import {
+  ICity,
   ICurrentWeather,
   IFiveDayForecast,
   IForecastWeather,
   ILocation,
   ITransformedCurrentWeather,
-  ITransformedForecastWithSummary,
+  ITransformedForecastWithSummary
 } from "../models";
 
 import {
@@ -31,6 +32,12 @@ class OpenWeatherService {
       throw new Error(`Could not fetch ${url}, received ${res.status}`);
     }
     return await res.json();
+  }
+
+  public async searchCity(query: string): Promise<ICity[]> {
+    const url: string = `${this._apiBase}geo/1.0/direct?q=${query}&limit=5&appid=${this._apiKey}`;
+
+    return await this.getResource<ICity[]>(url);
   }
 
   public async getCurrentWeather(): Promise<ITransformedCurrentWeather> {
