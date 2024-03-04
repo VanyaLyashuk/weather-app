@@ -5,7 +5,7 @@ import {
   IForecastWeather,
   ILocation,
   ITransformedCurrentWeather,
-  ITransformedForecastWithSummary
+  ITransformedForecastWithSummary,
 } from "../models";
 
 import {
@@ -40,17 +40,21 @@ class OpenWeatherService {
     return await this.getResource<ICity[]>(url);
   }
 
-  public async getCurrentWeather(): Promise<ITransformedCurrentWeather> {
-    const url: string = `${this._apiBase}data/2.5/weather?lat=${this._defaultLocation.lat}&lon=${this._defaultLocation.lon}&appid=${this._apiKey}&units=metric`;
+  public async getCurrentWeather(
+    lat: number = this._defaultLocation.lat,
+    lon: number = this._defaultLocation.lon
+  ): Promise<ITransformedCurrentWeather> {
+    const url: string = `${this._apiBase}data/2.5/weather?lat=${lat}&lon=${lon}&appid=${this._apiKey}&units=metric`;
     const res: ICurrentWeather = await this.getResource<ICurrentWeather>(url);
 
     return this._transformWeatherData(res);
   }
 
-  public async getFiveDayForecast(): Promise<
-    ITransformedForecastWithSummary[]
-  > {
-    const url: string = `${this._apiBase}data/2.5/forecast?lat=${this._defaultLocation.lat}&lon=${this._defaultLocation.lon}&appid=${this._apiKey}&units=metric`;
+  public async getFiveDayForecast(
+    lat: number = this._defaultLocation.lat,
+    lon: number = this._defaultLocation.lon
+  ): Promise<ITransformedForecastWithSummary[]> {
+    const url: string = `${this._apiBase}data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${this._apiKey}&units=metric`;
     const res: IFiveDayForecast = await this.getResource<IFiveDayForecast>(url);
 
     return this._transformFiveDayForecast(res.list).splice(0, 5);
