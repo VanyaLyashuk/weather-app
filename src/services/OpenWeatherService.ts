@@ -3,7 +3,6 @@ import {
   ICurrentWeather,
   IFiveDayForecast,
   IForecastWeather,
-  ILocation,
   ITransformedCurrentWeather,
   ITransformedForecastWithSummary,
 } from "../models";
@@ -21,10 +20,6 @@ class OpenWeatherService {
   private _apiBase: string = "https://api.openweathermap.org/";
   private _apiBaseImg: string = "http://openweathermap.org/img/wn/";
   private _apiKey: string = "54e6a33b161001dd37822697dce2955c";
-  private _defaultLocation: ILocation = {
-    lat: 45.34,
-    lon: 28.84,
-  };
 
   private async getResource<T>(url: string): Promise<T> {
     const res = await fetch(url);
@@ -41,8 +36,8 @@ class OpenWeatherService {
   }
 
   public async getCurrentWeather(
-    lat: number = this._defaultLocation.lat,
-    lon: number = this._defaultLocation.lon
+    lat: number,
+    lon: number
   ): Promise<ITransformedCurrentWeather> {
     const url: string = `${this._apiBase}data/2.5/weather?lat=${lat}&lon=${lon}&appid=${this._apiKey}&units=metric`;
     const res: ICurrentWeather = await this.getResource<ICurrentWeather>(url);
@@ -51,8 +46,8 @@ class OpenWeatherService {
   }
 
   public async getFiveDayForecast(
-    lat: number = this._defaultLocation.lat,
-    lon: number = this._defaultLocation.lon
+    lat: number,
+    lon: number
   ): Promise<ITransformedForecastWithSummary[]> {
     const url: string = `${this._apiBase}data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${this._apiKey}&units=metric`;
     const res: IFiveDayForecast = await this.getResource<IFiveDayForecast>(url);
