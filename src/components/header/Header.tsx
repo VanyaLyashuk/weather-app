@@ -26,14 +26,14 @@ const Header = () => {
       <div className="font-medium text-neutral-600 dark:dark-mode-text-color sm:text-lg">
         <span className=""></span>
         <button
-          className={theme === "dark" ? "text-primary" : ""}
+          className={`focus-visible-outline rounded-sm ${theme === "dark" ? "text-primary" : ""}`}
           onClick={() => onThemeChange("dark")}
         >
           Dark
         </button>{" "}
         /{" "}
         <button
-          className={theme === "light" ? "text-primary" : ""}
+          className={`focus-visible-outline rounded-sm ${theme === "light" ? "text-primary" : ""}`}
           onClick={() => onThemeChange("light")}
         >
           Light

@@ -28,10 +28,10 @@ const ForecastItem: React.FC<IForecastItemProps> = ({ forecast, index }) => {
     forecast.dailyTemperatureSummary;
 
   return (
-    <li className="overflow-hidden bg-white rounded-md shadow-md dark:dark-mode">
+    <li className="bg-white rounded-md shadow-md dark:dark-mode">
       <button
         onClick={handleDetailsToggle}
-        className="flex items-center justify-between w-full px-3 rounded-md sm:px-4 md:px-[18px]"
+        className="flex items-center justify-between w-full px-3 rounded-md sm:px-4 md:px-[18px] focus-visible-outline"
       >
         <p className="text-left min-w-[95px] forecast-text-size-xs forecast-btn-date-width-xs">{forecast.date}</p>
         <div className="flex items-center min-w-[100px] forecast-temp-width-xs">
@@ -41,7 +41,7 @@ const ForecastItem: React.FC<IForecastItemProps> = ({ forecast, index }) => {
         <TriangleIcon showDetails={showDetails} />
       </button>
       <div
-        className={`px-3 sm:px-4 sm:grid sm:grid-cols-[1fr_3px_auto] md:px-[18px] sm:gap-x-4 md:gap-x-6 transition-all duration-[400ms] ${detailsClasses}`}
+        className={`px-3 sm:px-4 sm:grid sm:grid-cols-[1fr_3px_auto] md:px-[18px] sm:gap-x-4 md:gap-x-6 transition-all duration-[400ms] ${detailsClasses} overflow-hidden`}
       >
         <div className="flex items-center gap-3 sm:mt-[-14px] sm:pt-2 md:pt-3 sm:col-span-1 ">
           <img
