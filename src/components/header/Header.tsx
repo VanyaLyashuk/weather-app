@@ -3,9 +3,13 @@ import { useEffect, useState } from "react";
 type Theme = "light" | "dark";
 
 const Header = () => {
-  const [theme, setTheme] = useState<Theme>("light");
+  const [theme, setTheme] = useState<Theme>(() => {
+    return (localStorage.getItem("theme") as Theme) || "light";
+  });
 
   useEffect(() => {
+    localStorage.setItem("theme", theme);
+    
     const root = window.document.documentElement;
     root.classList.remove("dark", "light");
     root.classList.add(theme);
