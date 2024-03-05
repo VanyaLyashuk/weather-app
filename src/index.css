@@ -49,10 +49,10 @@
 
 @layer base {
   body {
-    @apply font-custom text-neutral-800 dark:bg-[#10172a];
+    @apply font-custom text-neutral-800 dark:bg-[#22232a];
   }
   .dark-mode {
-    @apply bg-slate-800 text-slate-400;
+    @apply bg-[#2d2d34] text-slate-400 shadow-dark-shadow;
   }
   .dark-mode-text-color {
     @apply text-slate-400;
