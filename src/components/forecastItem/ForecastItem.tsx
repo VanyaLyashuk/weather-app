@@ -28,7 +28,7 @@ const ForecastItem: React.FC<IForecastItemProps> = ({ forecast, index }) => {
     forecast.dailyTemperatureSummary;
 
   return (
-    <li className="overflow-hidden bg-white rounded-md shadow-md dark:bg-slate-800 dark:text-slate-400">
+    <li className="overflow-hidden bg-white rounded-md shadow-md dark:dark-mode">
       <button
         onClick={handleDetailsToggle}
         className="flex items-center justify-between w-full px-3 rounded-md sm:px-4 md:px-[18px]"

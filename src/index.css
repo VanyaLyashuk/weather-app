@@ -54,6 +54,9 @@
   .dark-mode {
     @apply bg-slate-800 text-slate-400;
   }
+  .dark-mode-text-color {
+    @apply text-slate-400;
+  }
 }
 
 @media (min-width: 390px) {

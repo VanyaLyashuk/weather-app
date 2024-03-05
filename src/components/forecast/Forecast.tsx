@@ -41,7 +41,7 @@ const Forecast: React.FC<ILocation> = ({ lat, lon }) => {
   const content =
     !loading && !error && forecast ? (
       <section>
-        <h2 className="text-xl font-bold mb-3 sm:text-[22px] md:text-2xl dark:text-slate-400">
+        <h2 className="text-xl font-bold mb-3 sm:text-[22px] md:text-2xl dark:dark-mode-text-color">
           3-hour Forecast 5 days
         </h2>
         <ul className="grid gap-3 md:gap-4">

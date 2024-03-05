@@ -1,6 +1,6 @@
 const Footer = () => {
   return (
-    <footer className="p-8 mt-auto text-center sm:text-lg dark:text-slate-400">
+    <footer className="p-8 mt-auto text-center sm:text-lg dark:dark-mode-text-color">
       © 2024. All rights reserved.{" "}
       <span className="whitespace-nowrap">
         Coded by{" "}
