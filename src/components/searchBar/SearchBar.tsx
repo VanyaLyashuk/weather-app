@@ -1,6 +1,7 @@
 import { ICity, ILocation } from "@models/index";
 import OpenWeatherService from "@services//OpenWeatherService";
 import React, { useEffect, useState } from "react";
+import LocationIcon from "../../UI/icons/LocationIcon";
 
 interface ISearchBarProps {
   onCitySelect: (coords: ILocation) => void;
@@ -32,6 +33,7 @@ const SearchBar: React.FC<ISearchBarProps> = ({ onCitySelect }) => {
   };
 
   const handleCitySelect = (coords: ILocation): void => {
+    console.log(cities)
     onCitySelect(coords);
     setSearch("");
     setCities([]);
@@ -58,20 +60,15 @@ const SearchBar: React.FC<ISearchBarProps> = ({ onCitySelect }) => {
 
   return (
     <>
-      <form className="flex mb-3 md:mb-4">
+      <form className="relative flex mb-3 md:mb-4">
         <input
-          className="w-full px-3 py-[10px] text-base leading-relaxed rounded-none rounded-bl-md rounded-tl-md shadow-md sm:text-lg md:pl-[18px] dark:bg-slate-800 dark:text-slate-400"
+          className="w-full px-9 py-[10px] text-base leading-relaxed rounded-md shadow-md sm:text-lg md:pl-12 dark:bg-slate-800 dark:text-slate-400"
           type="text"
           onChange={handleInputChange}
           placeholder="Search City"
           value={search}
         />
-        <button
-          className="px-6 py-2 text-base font-medium leading-normal text-white transition-colors shadow-md bg-neutral-800 rounded-r-md hover:bg-primary focus:bg-primary active:bg-primary md:text-[18px] dark:bg-slate-400 dark:hover:bg-primary dark:focus:bg-primary dark:active:bg-primary dark:text-slate-800 dark:hover:text-white"
-          type="submit"
-        >
-          Search
-        </button>
+        <LocationIcon />
       </form>
       {citiesList}
     </>
