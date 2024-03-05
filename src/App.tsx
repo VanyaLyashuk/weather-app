@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CurrentWeather from "./components/currentWeather/CurrentWeather";
 import ErrorBoundary from "./components/errorBoundary/ErrorBoundary";
 import Footer from "./components/footer/Footer";
@@ -8,10 +8,14 @@ import SearchBar from "./components/searchBar/SearchBar";
 import { ILocation } from "./models";
 
 const App: React.FC = () => {
-  const [searchedCityCoords, setSearchedCityCoords] = useState<ILocation>({
-    lat: 45.34,
-    lon: 28.84,
+  const [searchedCityCoords, setSearchedCityCoords] = useState<ILocation>(() => {
+    const coords = localStorage.getItem("coords");
+    return coords ? JSON.parse(coords) : {lat: 45.34, lon: 28.84};
   });
+
+  useEffect(() => {
+    localStorage.setItem("coords", JSON.stringify(searchedCityCoords));
+  }, [searchedCityCoords]);
 
   const onCitySelect = (coords: ILocation): void => {
     setSearchedCityCoords(coords);
