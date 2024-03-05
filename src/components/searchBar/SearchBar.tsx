@@ -41,17 +41,19 @@ const SearchBar: React.FC<ISearchBarProps> = ({ onCitySelect }) => {
   const citiesList = cities.length ? (
     <ul className="flex flex-wrap w-full gap-2 mb-3 md:mb-4">
       {cities.map((city, index) => (
-        <li
-          className="cursor-pointer px-3 py-2 text-base leading-relaxed rounded-md rounded-tl-md shadow-md sm:text-lg md:pl-[18px] dark:bg-slate-800 dark:text-slate-400"
-          key={city.name + index}
-          onClick={() =>
-            handleCitySelect({
-              lat: +city.lat.toFixed(2),
-              lon: +city.lon.toFixed(2),
-            })
-          }
-        >
-          {city.name}, {city.country}
+        <li key={city.name + index}>
+          <button
+            className="cursor-pointer px-3 py-2 text-base leading-relaxed rounded-md shadow-md sm:text-lg md:pl-[18px] dark:dark-mode"
+            tabIndex={0}
+            onClick={() =>
+              handleCitySelect({
+                lat: +city.lat.toFixed(2),
+                lon: +city.lon.toFixed(2),
+              })
+            }
+          >
+            {city.name}, {city.country}
+          </button>
         </li>
       ))}
     </ul>
@@ -61,7 +63,7 @@ const SearchBar: React.FC<ISearchBarProps> = ({ onCitySelect }) => {
     <>
       <form className="relative flex mb-3 md:mb-4">
         <input
-          className="w-full px-9 py-[10px] text-base leading-relaxed rounded-md shadow-md sm:text-lg md:pl-12 dark:bg-slate-800 dark:text-slate-400"
+          className="w-full px-9 py-[10px] text-base leading-relaxed rounded-md shadow-md sm:text-lg md:pl-12 dark:dark-mode"
           type="text"
           onChange={handleInputChange}
           placeholder="Search City"
