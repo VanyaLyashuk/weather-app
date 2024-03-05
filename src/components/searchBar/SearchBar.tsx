@@ -33,7 +33,6 @@ const SearchBar: React.FC<ISearchBarProps> = ({ onCitySelect }) => {
   };
 
   const handleCitySelect = (coords: ILocation): void => {
-    console.log(cities)
     onCitySelect(coords);
     setSearch("");
     setCities([]);
