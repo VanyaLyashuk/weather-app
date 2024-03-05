@@ -51,6 +51,9 @@
   body {
     @apply font-custom text-neutral-800 dark:bg-[#10172a];
   }
+  .dark-mode {
+    @apply bg-slate-800 text-slate-400;
+  }
 }
 
 @media (min-width: 390px) {
