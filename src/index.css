@@ -51,8 +51,8 @@
   outline: none !important;
   box-shadow: 0 0 0 2px #FBA834 !important;
   border-radius: 0.375rem;
+  outline-offset: 2px;
 }
-
 @layer base {
   body {
     @apply font-custom text-neutral-800 dark:bg-[#22232a];

@@ -28,18 +28,26 @@ const ForecastItem: React.FC<IForecastItemProps> = ({ forecast, index }) => {
     forecast.dailyTemperatureSummary;
 
   return (
-    <li className="bg-white rounded-md shadow-md dark:dark-mode">
-      <button
-        onClick={handleDetailsToggle}
-        className="flex items-center justify-between w-full px-3 rounded-md sm:px-4 md:px-[18px] focus-visible-outline"
-      >
-        <p className="text-left min-w-[95px] forecast-text-size-xs forecast-btn-date-width-xs">{forecast.date}</p>
-        <div className="flex items-center min-w-[100px] forecast-temp-width-xs">
-          <img src={icon} className="w-10 forecast-btn-icon-size-xs md:w-15" alt="clouds" />
-          <p className="forecast-text-size-xs">{`${temperatureMax}/${temperatureMin}°C`}</p>
-        </div>
-        <TriangleIcon showDetails={showDetails} />
-      </button>
+    <li className="overflow-hidden bg-white rounded-md shadow-md over dark:dark-mode">
+      <div className="p-1 m-[-2px]">        
+        <button
+          onClick={handleDetailsToggle}
+          className="flex items-center justify-between w-full px-3 rounded-md sm:px-4 md:px-[18px] focus-visible-outline"
+        >
+          <p className="text-left min-w-[95px] forecast-text-size-xs forecast-btn-date-width-xs">
+            {forecast.date}
+          </p>
+          <div className="flex items-center min-w-[100px] forecast-temp-width-xs">
+            <img
+              src={icon}
+              className="w-10 forecast-btn-icon-size-xs md:w-15"
+              alt="clouds"
+            />
+            <p className="forecast-text-size-xs">{`${temperatureMax}/${temperatureMin}°C`}</p>
+          </div>
+          <TriangleIcon showDetails={showDetails} />
+        </button>
+      </div>
       <div
         className={`px-3 sm:px-4 sm:grid sm:grid-cols-[1fr_3px_auto] md:px-[18px] sm:gap-x-4 md:gap-x-6 transition-all duration-[400ms] ${detailsClasses} overflow-hidden`}
       >
@@ -54,7 +62,7 @@ const ForecastItem: React.FC<IForecastItemProps> = ({ forecast, index }) => {
               {description}
             </p>
             <p className="text-base forecast-text-size-xs md:text-xl">
-              The high will be {`${temperatureMax}°C`}, the low {" "}
+              The high will be {`${temperatureMax}°C`}, the low{" "}
               <span className="whitespace-nowrap">
                 will be {`${temperatureMin}°C`}
               </span>
