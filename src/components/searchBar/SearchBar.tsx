@@ -38,6 +38,16 @@ const SearchBar: React.FC<ISearchBarProps> = ({ onCitySelect }) => {
     setCities([]);
   };
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+    e.preventDefault();
+    if (cities.length) {
+      handleCitySelect({
+        lat: cities[0].lat,
+        lon: cities[0].lon,
+      });
+    }
+  };
+
   const citiesList = cities.length ? (
     <ul className="flex flex-wrap w-full gap-2 mb-3 md:mb-4">
       {cities.map((city, index) => (
@@ -47,8 +57,8 @@ const SearchBar: React.FC<ISearchBarProps> = ({ onCitySelect }) => {
             tabIndex={0}
             onClick={() =>
               handleCitySelect({
-                lat: +city.lat.toFixed(2),
-                lon: +city.lon.toFixed(2),
+                lat: city.lat,
+                lon: city.lon,
               })
             }
           >
@@ -61,7 +71,7 @@ const SearchBar: React.FC<ISearchBarProps> = ({ onCitySelect }) => {
 
   return (
     <>
-      <form className="relative flex mb-3 md:mb-4 ">
+      <form className="relative flex mb-3 md:mb-4" onSubmit={handleSubmit}>
         <input
           className="w-full px-9 py-[10px] text-base leading-relaxed rounded-md shadow-md sm:text-lg md:pl-12 dark:dark-mode focus-visible-outline"
           type="text"
