@@ -12,6 +12,7 @@ export default defineConfig({
       '@services': path.resolve(__dirname, 'src/services'),
       '@models': path.resolve(__dirname, 'src/models'),
       '@icons': path.resolve(__dirname, 'src/UI/icons'),
+      '@animations': path.resolve(__dirname, 'src/animations'),
     }
   },
 })

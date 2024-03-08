@@ -26,6 +26,7 @@
       "@services/*": ["src/services/*"],
       "@models/*": ["src/models/*"],
       "@icons/*": ["src/UI/icons/*"],
+      "@animations/*": ["src/animations/*"],
     }
   },
   "include": ["src/**/*"],
