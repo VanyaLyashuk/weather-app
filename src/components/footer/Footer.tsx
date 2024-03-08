@@ -5,7 +5,7 @@ const Footer = () => {
       <span className="whitespace-nowrap">
         Coded by{" "}
         <a
-          className="underline rounded-sm focus-visible-outline"
+          className="underline rounded-sm focus-visible-outline hover:text-primary"
           href="https://www.linkedin.com/in/ivan-lyashuk/"
           target="_blank"
           rel="noreferrer noopener"
