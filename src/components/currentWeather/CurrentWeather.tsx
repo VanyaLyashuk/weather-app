@@ -1,12 +1,14 @@
+import { fadeInUpAnimation } from "@animations/animationsVariants";
 import ArrowIcon from "@icons/ArrowIcon";
 import PressureIcon from "@icons/PressureIcon";
 import { ILocation, ITransformedCurrentWeather } from "@models/index";
 import OpenWeatherService from "@services/OpenWeatherService";
+import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import ErrorMessage from "../errorMessage/ErrorMessage";
 import Spinner from "../spinner/Spinner";
 
-const CurrentWeather: React.FC<ILocation> = ({lat, lon}) => {
+const CurrentWeather: React.FC<ILocation> = ({ lat, lon }) => {
   const [currentWeather, setCurrentWeather] =
     useState<ITransformedCurrentWeather | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -69,7 +71,13 @@ const CurrentWeatherView: React.FC<ITransformedCurrentWeather> = ({
   visibility,
 }) => {
   return (
-    <section className="px-3 py-6 mb-6 rounded-md shadow-md sm:px-4 sm:py-6 sm:grid sm:grid-cols-[auto,1fr] md:px-[18px] md:py-8 sm:mb-7 bg-white dark:dark-mode">
+    <motion.section
+      initial="hidden"
+      whileInView="visible"
+      variants={fadeInUpAnimation()}
+      viewport={{once: true}}
+      className="px-3 py-6 mb-6 rounded-md shadow-md sm:px-4 sm:py-6 sm:grid sm:grid-cols-[auto,1fr] md:px-[18px] md:py-8 sm:mb-7 bg-white dark:dark-mode"
+    >
       <div className="flex items-center justify-between w-full sm:col-span-2">
         <p className="text-primary current-weather-date-xs">{date}</p>
         <ul className="sm:flex sm:items-center sm:gap-4">
@@ -113,7 +121,7 @@ const CurrentWeatherView: React.FC<ITransformedCurrentWeather> = ({
           <span>{visibility}</span>
         </li>
       </ul>
-    </section>
+    </motion.section>
   );
 };
 

@@ -1,5 +1,7 @@
+import { fadeInUpAnimation } from "@animations/animationsVariants";
 import { ILocation, ITransformedForecastWithSummary } from "@models/index";
 import OpenWeatherService from "@services/OpenWeatherService";
+import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import ErrorMessage from "../errorMessage/ErrorMessage";
 import ForecastItem from "../forecastItem/ForecastItem";
@@ -41,9 +43,15 @@ const Forecast: React.FC<ILocation> = ({ lat, lon }) => {
   const content =
     !loading && !error && forecast ? (
       <section>
-        <h2 className="text-xl font-bold mb-3 sm:text-[22px] md:text-2xl dark:dark-mode-text-color">
+        <motion.h2
+          initial="hidden"
+          whileInView="visible"
+          variants={fadeInUpAnimation()}
+          viewport={{once: true}}
+          className="text-xl font-bold mb-3 sm:text-[22px] md:text-2xl dark:dark-mode-text-color"
+        >
           3-hour Forecast 5 days
-        </h2>
+        </motion.h2>
         <ul className="grid gap-3 md:gap-4">
           {forecast.map((item, index) => (
             <ForecastItem forecast={item} key={item.date} index={index} />

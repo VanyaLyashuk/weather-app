@@ -1,5 +1,7 @@
+import { fadeInUpAnimation } from "@animations/animationsVariants";
 import { ICity, ILocation } from "@models/index";
 import OpenWeatherService from "@services//OpenWeatherService";
+import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import LocationIcon from "../../UI/icons/LocationIcon";
 
@@ -51,7 +53,13 @@ const SearchBar: React.FC<ISearchBarProps> = ({ onCitySelect }) => {
   const citiesList = cities.length ? (
     <ul className="flex flex-wrap w-full gap-2 mb-3 md:mb-4">
       {cities.map((city, index) => (
-        <li key={city.name + index}>
+        <motion.li
+          initial="hidden"
+          whileInView="visible"
+          variants={fadeInUpAnimation(index * 0.1)}
+          viewport={{ once: true }}
+          key={city.name + index}
+        >
           <button
             className="cursor-pointer px-3 py-2 text-base leading-relaxed rounded-md shadow-md sm:text-lg md:pl-[18px] dark:dark-mode focus-visible-outline"
             tabIndex={0}
@@ -64,14 +72,21 @@ const SearchBar: React.FC<ISearchBarProps> = ({ onCitySelect }) => {
           >
             {city.name}, {city.country}
           </button>
-        </li>
+        </motion.li>
       ))}
     </ul>
   ) : null;
 
   return (
     <>
-      <form className="relative flex mb-3 md:mb-4" onSubmit={handleSubmit}>
+      <motion.form
+        initial="hidden"
+        whileInView="visible"
+        variants={fadeInUpAnimation()}
+        viewport={{ once: true }}
+        className="relative flex mb-3 md:mb-4"
+        onSubmit={handleSubmit}
+      >
         <input
           className="w-full px-9 py-[10px] text-base leading-relaxed rounded-md shadow-md sm:text-lg md:pl-12 dark:dark-mode focus-visible-outline"
           type="text"
@@ -80,7 +95,7 @@ const SearchBar: React.FC<ISearchBarProps> = ({ onCitySelect }) => {
           value={search}
         />
         <LocationIcon />
-      </form>
+      </motion.form>
       {citiesList}
     </>
   );

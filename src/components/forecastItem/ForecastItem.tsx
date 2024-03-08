@@ -1,4 +1,6 @@
+import { fadeInUpAnimation } from "@animations/animationsVariants";
 import { IForecastItemProps } from "@models/index";
+import { motion } from "framer-motion";
 import { useState } from "react";
 import ArrowIcon from "../../UI/icons/ArrowIcon";
 import PressureIcon from "../../UI/icons/PressureIcon";
@@ -28,8 +30,14 @@ const ForecastItem: React.FC<IForecastItemProps> = ({ forecast, index }) => {
     forecast.dailyTemperatureSummary;
 
   return (
-    <li className="overflow-hidden bg-white rounded-md shadow-md over dark:dark-mode">
-      <div className="p-1 m-[-2px]">        
+    <motion.li
+      initial="hidden"
+      whileInView="visible"
+      variants={fadeInUpAnimation(index * 0.1)}
+      viewport={{once: true}}
+      className="overflow-hidden bg-white rounded-md shadow-md over dark:dark-mode"
+    >
+      <div className="p-1 m-[-2px]">
         <button
           onClick={handleDetailsToggle}
           className="flex items-center justify-between w-full px-3 rounded-md sm:px-4 md:px-[18px] focus-visible-outline"
@@ -145,7 +153,7 @@ const ForecastItem: React.FC<IForecastItemProps> = ({ forecast, index }) => {
           </table>
         </div>
       </div>
-    </li>
+    </motion.li>
   );
 };
 
