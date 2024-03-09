@@ -61,7 +61,7 @@ const SearchBar: React.FC<ISearchBarProps> = ({ onCitySelect }) => {
           key={city.name + index}
         >
           <button
-            className="cursor-pointer px-3 py-2 text-base leading-relaxed rounded-md shadow-md sm:text-lg md:pl-[18px] dark:dark-mode focus-visible-outline"
+            className="cursor-pointer px-3 py-2 text-base leading-relaxed rounded-md shadow-light-shadow sm:text-lg md:pl-[18px] dark:dark-mode focus-visible-outline"
             tabIndex={0}
             onClick={() =>
               handleCitySelect({
@@ -88,7 +88,7 @@ const SearchBar: React.FC<ISearchBarProps> = ({ onCitySelect }) => {
         onSubmit={handleSubmit}
       >
         <input
-          className="w-full px-9 py-[10px] text-base leading-relaxed rounded-md shadow-md sm:text-lg md:pl-12 dark:dark-mode focus-visible-outline"
+          className="w-full px-9 py-[10px] text-base leading-relaxed rounded-md shadow-light-shadow sm:text-lg md:pl-12 dark:dark-mode focus-visible-outline"
           type="text"
           onChange={handleInputChange}
           placeholder="Search City"

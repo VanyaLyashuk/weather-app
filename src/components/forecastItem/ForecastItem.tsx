@@ -35,7 +35,7 @@ const ForecastItem: React.FC<IForecastItemProps> = ({ forecast, index }) => {
       whileInView="visible"
       variants={fadeInUpAnimation(index * 0.1)}
       viewport={{once: true}}
-      className="overflow-hidden bg-white rounded-md shadow-md over dark:dark-mode"
+      className="overflow-hidden bg-white rounded-md shadow-light-shadow over dark:dark-mode"
     >
       <div className="p-1 m-[-2px]">
         <button
