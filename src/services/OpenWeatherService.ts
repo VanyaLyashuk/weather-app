@@ -31,8 +31,20 @@ class OpenWeatherService {
 
   public async searchCity(query: string): Promise<ICity[]> {
     const url: string = `${this._apiBase}geo/1.0/direct?q=${query}&limit=5&appid=${this._apiKey}`;
-
-    return await this.getResource<ICity[]>(url);
+    const response = await this.getResource<ICity[]>(url);
+  
+    const uniqueCities = new Set();
+  
+    const filteredCities = response.filter((city) => {
+      const identifier = `${city.name}, ${city.country}`;
+      if (!uniqueCities.has(identifier)) {
+        uniqueCities.add(identifier);
+        return true;
+      }
+      return false;
+    });
+  
+    return filteredCities;
   }
 
   public async getCurrentWeather(
