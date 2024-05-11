@@ -1,1 +1,1 @@
-export type TimePeriodKey = "5:00am" | "2:00pm" | "8:00pm" | "11:00pm";
+export type TimePeriodKey = "6:00am" | "3:00pm" | "9:00pm" | "12:00pm";

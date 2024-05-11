@@ -9,10 +9,10 @@ import {
 
 export const _getTimePeriod = (time: string): TimePeriodValue | null => {
   const timePeriodMapping: Record<TimePeriodKey, TimePeriodValue> = {
-    "5:00am": "morning",
-    "2:00pm": "afternoon",
-    "8:00pm": "evening",
-    "11:00pm": "night",
+    "6:00am": "morning",
+    "3:00pm": "afternoon",
+    "9:00pm": "evening",
+    "12:00pm": "night",
   };
 
   return timePeriodMapping[time as TimePeriodKey] || null;
