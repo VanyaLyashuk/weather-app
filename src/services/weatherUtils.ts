@@ -3,19 +3,29 @@ import {
   IForecastWeather,
   ITransformedForecast,
   ITransformedForecastWithSummary,
-  TimePeriodKey,
   TimePeriodValue,
 } from "../models";
 
 export const _getTimePeriod = (time: string): TimePeriodValue | null => {
-  const timePeriodMapping: Record<TimePeriodKey, TimePeriodValue> = {
-    "6:00am": "morning",
-    "3:00pm": "afternoon",
-    "9:00pm": "evening",
-    "12:00pm": "night",
-  };
+  const match = time.match(/(\d+:\d+)([ap]m)/i);
+  if (!match) return null;
 
-  return timePeriodMapping[time as TimePeriodKey] || null;
+  const [timeString, period] = match.slice(1);
+  const [rawHours] = timeString.split(":").map(Number);
+
+  const hours =
+    period.toLowerCase() === "pm" && rawHours !== 12
+      ? rawHours + 12
+      : period.toLowerCase() === "am" && rawHours === 12
+      ? 0
+      : rawHours;
+
+  if (hours >= 5 && hours < 9) return "morning";
+  if (hours >= 12 && hours < 16) return "afternoon";
+  if (hours >= 18 && hours < 22) return "evening";
+  if (hours >= 22 || hours < 5) return "night";
+
+  return null;
 };
 
 export const _transformDate = (date: Date, format?: string): string => {
