@@ -4,7 +4,6 @@ import { IFiveDayForecast } from "./FiveDayForecast.interface";
 import { IForecastItemProps } from "./ForecastItemProps.interface";
 import { IForecastWeather } from "./ForecastWeather.interface";
 import { ILocation } from "./Location.interface";
-import { TimePeriodKey } from "./TimePeriodKey.types";
 import { TimePeriodValue } from "./TimePeriodValue.types";
 import { ITransformedCurrentWeather } from "./TransformedCurrentWeather.interface";
 import { ITransformedForecast } from "./TransformedForecast.interface";
@@ -19,7 +18,6 @@ export type {
   ITransformedCurrentWeather,
   ITransformedForecast,
   ITransformedForecastWithSummary,
-  TimePeriodKey,
   TimePeriodValue
 };
 
