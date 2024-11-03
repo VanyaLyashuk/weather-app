@@ -19,7 +19,7 @@ import {
 class OpenWeatherService {
   private _apiBase: string = "https://api.openweathermap.org/";
   private _apiBaseImg: string = "http://openweathermap.org/img/wn/";
-  private _apiKey: string = "54e6a33b161001dd37822697dce2955c";
+  private _apiKey: string = import.meta.env.VITE_OPEN_WEATHER_API_KEY;
 
   private async getResource<T>(url: string): Promise<T> {
     const res = await fetch(url);
@@ -32,9 +32,9 @@ class OpenWeatherService {
   public async searchCity(query: string): Promise<ICity[]> {
     const url: string = `${this._apiBase}geo/1.0/direct?q=${query}&limit=5&appid=${this._apiKey}`;
     const response = await this.getResource<ICity[]>(url);
-  
+
     const uniqueCities = new Set();
-  
+
     const filteredCities = response.filter((city) => {
       const identifier = `${city.name}, ${city.country}`;
       if (!uniqueCities.has(identifier)) {
@@ -43,7 +43,7 @@ class OpenWeatherService {
       }
       return false;
     });
-  
+
     return filteredCities;
   }
 
