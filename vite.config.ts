@@ -5,7 +5,7 @@ import { defineConfig } from 'vite'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: '/weather-app/',
+  base: '/',
   resolve: {
     alias: {
       '#root': path.resolve(__dirname),
