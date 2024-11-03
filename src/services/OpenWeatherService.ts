@@ -19,18 +19,15 @@ import {
 
 const useOpenWeatherService = () => {
   const { loading, request, error } = useHttp();
-
-  const _apiBase: string = "https://api.openweathermap.org/";
   const _apiBaseImg: string = "http://openweathermap.org/img/wn/";
-  const _apiKey: string = import.meta.env.VITE_OPEN_WEATHER_API_KEY;
 
   const searchCity = async (query: string): Promise<ICity[]> => {
-    const url: string = `${_apiBase}geo/1.0/direct?q=${query}&limit=5&appid=${_apiKey}`;
-    const response = await request<ICity[]>(url, {});
+    const endpoint = `/geo/1.0/direct`;
+    const params = `q=${query}&limit=5`;
+    const response = await request<ICity[]>(endpoint, params);
 
     const uniqueCities = new Set();
-
-    const filteredCities = response.filter((city) => {
+    return response.filter((city) => {
       const identifier = `${city.name}, ${city.country}`;
       if (!uniqueCities.has(identifier)) {
         uniqueCities.add(identifier);
@@ -38,17 +35,15 @@ const useOpenWeatherService = () => {
       }
       return false;
     });
-
-    return filteredCities;
   };
 
   const getCurrentWeather = async (
     lat: number,
     lon: number
   ): Promise<ITransformedCurrentWeather> => {
-    const url: string = `${_apiBase}data/2.5/weather?lat=${lat}&lon=${lon}&appid=${_apiKey}&units=metric`;
-    const res: ICurrentWeather = await request<ICurrentWeather>(url, {});
-
+    const endpoint = `/data/2.5/weather`;
+    const params = `lat=${lat}&lon=${lon}&units=metric`;
+    const res = await request<ICurrentWeather>(endpoint, params);
     return _transformWeatherData(res);
   };
 
@@ -56,10 +51,10 @@ const useOpenWeatherService = () => {
     lat: number,
     lon: number
   ): Promise<ITransformedForecastWithSummary[]> => {
-    const url: string = `${_apiBase}data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${_apiKey}&units=metric`;
-    const res: IFiveDayForecast = await request<IFiveDayForecast>(url, {});
-
-    return _transformFiveDayForecast(res.list).splice(0, 5);
+    const endpoint = `/data/2.5/forecast`;
+    const params = `lat=${lat}&lon=${lon}&units=metric`;
+    const res = await request<IFiveDayForecast>(endpoint, params);
+    return _transformFiveDayForecast(res.list);
   };
 
   const _transformWeatherData = (
