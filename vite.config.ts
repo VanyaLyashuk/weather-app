@@ -8,12 +8,12 @@ export default defineConfig({
   base: '/weather-app/',
   resolve: {
     alias: {
-      '#root': __dirname,
+      '#root': path.resolve(__dirname),
       '@components': path.resolve(__dirname, 'src/components'),
       '@services': path.resolve(__dirname, 'src/services'),
       '@models': path.resolve(__dirname, 'src/models'),
       '@icons': path.resolve(__dirname, 'src/UI/icons'),
       '@animations': path.resolve(__dirname, 'src/animations'),
     }
-  },
+  }
 })
