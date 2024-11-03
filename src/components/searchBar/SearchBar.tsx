@@ -1,6 +1,6 @@
 import { fadeInUpAnimation } from "@animations/animationsVariants";
 import { ICity, ILocation } from "@models/index";
-import OpenWeatherService from "@services//OpenWeatherService";
+import useOpenWeatherService from "@services//OpenWeatherService";
 import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import LocationIcon from "../../UI/icons/LocationIcon";
@@ -13,7 +13,7 @@ const SearchBar: React.FC<ISearchBarProps> = ({ onCitySelect }) => {
   const [search, setSearch] = useState<string>("");
   const [cities, setCities] = useState<ICity[]>([]);
 
-  const openWeatherService = new OpenWeatherService();
+  const { searchCity } = useOpenWeatherService();
 
   useEffect(() => {
     if (!search.trim()) {
@@ -21,10 +21,7 @@ const SearchBar: React.FC<ISearchBarProps> = ({ onCitySelect }) => {
       return;
     } else {
       const delayDebounce = setTimeout(() => {
-        openWeatherService
-          .searchCity(search)
-          .then(setCities)
-          .catch(console.error);
+        searchCity(search).then(setCities).catch(console.error);
       }, 500);
       return () => clearTimeout(delayDebounce);
     }

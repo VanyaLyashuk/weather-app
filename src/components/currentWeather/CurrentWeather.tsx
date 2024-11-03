@@ -2,7 +2,7 @@ import { fadeInUpAnimation } from "@animations/animationsVariants";
 import ArrowIcon from "@icons/ArrowIcon";
 import PressureIcon from "@icons/PressureIcon";
 import { ILocation, ITransformedCurrentWeather } from "@models/index";
-import OpenWeatherService from "@services/OpenWeatherService";
+import useOpenWeatherService from "@services/OpenWeatherService";
 import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import ErrorMessage from "../errorMessage/ErrorMessage";
@@ -11,26 +11,15 @@ import Spinner from "../spinner/Spinner";
 const CurrentWeather: React.FC<ILocation> = ({ lat, lon }) => {
   const [currentWeather, setCurrentWeather] =
     useState<ITransformedCurrentWeather | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<boolean>(false);
 
   const minHeightClass = "min-h-[325px] sm:min-h-[250px] md:min-h-[315px]";
 
-  const openWeatherService = new OpenWeatherService();
+  const { loading, error, getCurrentWeather } = useOpenWeatherService();
 
   useEffect(() => {
-    setLoading(true);
-    setError(false);
-    openWeatherService
-      .getCurrentWeather(lat, lon)
-      .then((response) => {
-        setCurrentWeather(response);
-        setLoading(false);
-      })
-      .catch(() => {
-        setError(true);
-        setLoading(false);
-      });
+    getCurrentWeather(lat, lon).then((response) => {
+      setCurrentWeather(response);
+    });
   }, [lat, lon]);
 
   const spinner = loading ? <Spinner minHeightClass={minHeightClass} /> : null;
@@ -75,7 +64,7 @@ const CurrentWeatherView: React.FC<ITransformedCurrentWeather> = ({
       initial="hidden"
       whileInView="visible"
       variants={fadeInUpAnimation()}
-      viewport={{once: true}}
+      viewport={{ once: true }}
       className="px-3 py-6 mb-6 rounded-md shadow-light-shadow sm:px-4 sm:py-6 sm:grid sm:grid-cols-[auto,1fr] md:px-[18px] md:py-8 sm:mb-7 bg-white dark:dark-mode"
     >
       <div className="flex items-center justify-between w-full sm:col-span-2">
